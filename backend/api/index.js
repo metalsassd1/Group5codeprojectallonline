@@ -5,8 +5,8 @@ var app = express();
 const mysql = require('mysql2/promise');
 const connection = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
-    user: '3lg03quislqu90w0r43e',
-    password: 'pscale_pw_VY3MeZGYCqPzpAXidU6Irw2Re6LQDfaEfwsebfkmWkY',
+    user: 'yzgyebwluzgrod30luz9',
+    password: 'pscale_pw_cUYZfo0ZkRwLGFiwoNIqHgeA8kNP3Ac8Rf7RL52jzIv',
     database: 'allonline_s',
     port: 3306,
     ssl: {
@@ -18,13 +18,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-//อัพเดตสเตตัส
+//UpdateStatus
 app.put('/UpdateStatus', async (req, res) => {
     const paymentStatus = req.body.paymentStatus;
-    const planID = req.body.planID
+    const LoansID = req.body.LoansID
 
     const conn = await connection;
-    await conn.query('update Payment set paymentStatus = ? WHERE planID = ?', [paymentStatus, planID]);
+    const Update = await conn.query('update Payment set paymentStatus = ? WHERE LoansID = ?', [paymentStatus, LoansID]);
+    if (Update[0].affectedRows === 0) {
+        return res.status(404).json({ Status: "404", Message: "Not Fround LoansID" });
+    }
     res.status(200).send({ Status: "200", Message: "UpdateStatus Success" });
 })
 
@@ -35,9 +38,10 @@ app.post('/Payment', async (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const address = req.body.address;
+    const password = req.body.password;
 
     const conn = await connection;
-    await conn.query('INSERT into UserPaylater (id,id_card,firstName,lastName,address) values (?,?,?,?,?)', [id, id_card, firstName, lastName, address]);
+    await conn.query('INSERT into UserPaylater (id,id_card,firstName,lastName,address,password) values (?,?,?,?,?,?)', [id, id_card, firstName, lastName, address, password]);
     res.status(200).json({ Status: "200", Message: "Success" });
 });
 
