@@ -5,8 +5,8 @@ var app = express();
 const mysql = require('mysql2/promise');
 const connection = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
-    user: 'yzgyebwluzgrod30luz9',
-    password: 'pscale_pw_cUYZfo0ZkRwLGFiwoNIqHgeA8kNP3Ac8Rf7RL52jzIv',
+    user: 'irn2wz0a1jw35k14blkz',
+    password: 'pscale_pw_oCmAZYfgh6OoLIY31NoEkYj8bPNeF7pVObUHrO5q9Wj',
     database: 'allonline_s',
     port: 3306,
     ssl: {
