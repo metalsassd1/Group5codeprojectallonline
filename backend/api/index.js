@@ -5,8 +5,8 @@ var app = express();
 const mysql = require('mysql2/promise');
 const connection = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
-    user: 'irn2wz0a1jw35k14blkz',
-    password: 'pscale_pw_oCmAZYfgh6OoLIY31NoEkYj8bPNeF7pVObUHrO5q9Wj',
+    user: 'qpaldenqmclaia9pzkih',
+    password: 'pscale_pw_Q9LujiUx40ef0i5tkR9KPxCmvebzkWP33EdgyYOiXFx',
     database: 'allonline_s',
     port: 3306,
     ssl: {
@@ -38,10 +38,14 @@ app.post('/Payment', async (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const address = req.body.address;
+    const number = req.body.number;
     const password = req.body.password;
 
     const conn = await connection;
-    await conn.query('INSERT into UserPaylater (id,id_card,firstName,lastName,address,password) values (?,?,?,?,?,?)', [id, id_card, firstName, lastName, address, password]);
+    const Payment = await conn.query(' INSERT into UserPaylater (id,id_card,firstName,lastName,address,number,password) values (?,?,?,?,?,?,?)', [id, id_card, firstName, lastName, address, number, password]);
+    if (Payment[0].affectedRows === 0) {
+        return res.status(404).json({ Status: "404", Message: "Error" });
+    }
     res.status(200).json({ Status: "200", Message: "Success" });
 });
 
