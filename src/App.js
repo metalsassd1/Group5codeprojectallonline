@@ -7,7 +7,6 @@ import LoginAdmin from "./Metha/loginAdmin";
 import Pages from "./Chachaphong/pages/Pages"
 import Data from "./Chachaphong/Data"
 import Cart from "./Chachaphong/Cart/Cart"
-import Sdata from "./Chachaphong/shops/Sdata"
 import Footer from "./Chachaphong/footer/Footer"
 import Register from "./Metha/register"
 import MainTypeproduct from "./Metha/fashionFiles";
@@ -19,9 +18,11 @@ import ProductsCreate from "./Admin_component/ProductsCreate";
 import ProductsUpdate from "./Admin_component/ProductsUpdate";
 import Users from './Admin_component/Users';
 import AllProduct from "./ALLproduct/AllProduct"
+import PaymentEach from "./installmentPayment/MethaTOP/From"
 import Payment from "./Metha/payment"
 import ProductType from "./Metha/eachPro";
 import SearchResults from "./Chachaphong/MainPage/searchResult"
+import PaymentForm from "./installmentPayment/MethaTOP/PaymentForm"
 
 
 //////Metha
@@ -34,6 +35,12 @@ function App() {
       <Router>
         {/* <Header CartItem={CartItem} /> */}
         <Switch>
+        <Route path='/paya'>
+            <PaymentEach/>
+          </Route>
+          <Route path='/pays'>
+            <PaymentForm/>
+          </Route>
         <Route path='/Allpro' exact>
             <AllProduct/>
           </Route>

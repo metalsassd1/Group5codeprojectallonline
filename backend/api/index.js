@@ -5,8 +5,8 @@ var app = express();
 const mysql = require('mysql2/promise');
 const connection = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
-    user: '3lg03quislqu90w0r43e',
-    password: 'pscale_pw_VY3MeZGYCqPzpAXidU6Irw2Re6LQDfaEfwsebfkmWkY',
+    user: 'yzgyebwluzgrod30luz9',
+    password: 'pscale_pw_cUYZfo0ZkRwLGFiwoNIqHgeA8kNP3Ac8Rf7RL52jzIv',
     database: 'allonline_s',
     port: 3306,
     ssl: {
@@ -53,7 +53,7 @@ app.get('/UserAllonline', async (req, res) => {
 //แสดงสินค้า
 app.get('/Product_397020010', async (req, res) => {
     const conn = await connection;
-    const Product = await conn.query("SELECT * from Product WHERE productID = 397020010 ")
+    const Product = await conn.query("SELECT * from Product WHERE productID = 397020010")
     res.json(result = Product[0]);
 });
 

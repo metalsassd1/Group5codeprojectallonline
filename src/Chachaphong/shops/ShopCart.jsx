@@ -11,15 +11,15 @@ const ShopCart = ({product}) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/user!/products`)
+      .get(`http://localhost:3400/Product_582742010`)
       .then((res) => {
         setProducts(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
-  // {products.slice(0,20).map((product) =>{
-  //   console.log(product.image_product)
-  // })}
+  {products.slice(0,20).map((product) =>{
+    console.log(product.productName)  
+  })}
   return (
     <>
       {products.slice(7,28).map((product, index) => {
@@ -35,7 +35,7 @@ const ShopCart = ({product}) => {
                 </div>
               </div>
               <div className='product-details'>
-                <h3>{product.product_name}</h3>
+                <h3>{product.productName}</h3>
                 <div className='rate'>
                   <i className='fa fa-star'></i>
                   <i className='fa fa-star'></i>
