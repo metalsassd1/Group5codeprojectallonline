@@ -57,7 +57,7 @@ app.get('/UserAllonline', async (req, res) => {
 //แสดงสินค้า
 app.get('/Product_397020010', async (req, res) => {
     const conn = await connection;
-    const Product = await conn.query("SELECT * from Product WHERE productID = 397020010 ")
+    const Product = await conn.query("SELECT * from Product WHERE productID = 397020010")
     res.json(result = Product[0]);
 });
 
