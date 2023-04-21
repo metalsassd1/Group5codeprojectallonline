@@ -1,3 +1,5 @@
+//Chatchanan Chatsathawong
+//Yodsaphon Keddid
 var express = require('express');
 var cors = require('cors');
 var app = express();
@@ -5,8 +7,13 @@ var app = express();
 const mysql = require('mysql2/promise');
 const connection = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
+<<<<<<< HEAD
     user: '69lhyoonb5ds1avs2upy',
     password: 'pscale_pw_xXmnk6bAEPAJl2VpudfhbsHqC5KuzDMxskMGDJmUQsr',
+=======
+    user: '0gka21x6lhdexf1b3kze',
+    password: '123',
+>>>>>>> e2368a5e085965f814c389290e88fe06905689c7
     database: 'allonline_s',
     port: 3306,
     ssl: {
@@ -38,10 +45,14 @@ app.post('/Payment', async (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const address = req.body.address;
+    const number = req.body.number;
     const password = req.body.password;
 
     const conn = await connection;
-    await conn.query('INSERT into UserPaylater (id,id_card,firstName,lastName,address,password) values (?,?,?,?,?,?)', [id, id_card, firstName, lastName, address, password]);
+    const Payment = await conn.query(' INSERT into UserPaylater (id,id_card,firstName,lastName,address,number,password) values (?,?,?,?,?,?,?)', [id, id_card, firstName, lastName, address, number, password]);
+    if (Payment[0].affectedRows === 0) {
+        return res.status(404).json({ Status: "404", Message: "Error" });
+    }
     res.status(200).json({ Status: "200", Message: "Success" });
 });
 
@@ -183,6 +194,13 @@ app.get('/Product_582742010', async (req, res) => {
 app.get('/UserPaylater', async (req, res) => {
     const conn = await connection;
     const users = await conn.query("SELECT * from UserPaylater")
+    res.json(result = users[0]);
+});
+
+//ดูข้อมูลPayment
+app.get('/getPayment', async (req, res) => {
+    const conn = await connection;
+    const users = await conn.query("SELECT * from Payment")
     res.json(result = users[0]);
 });
 
