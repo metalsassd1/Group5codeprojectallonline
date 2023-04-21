@@ -11,7 +11,7 @@ const ShopCart = ({product}) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:3400/Product_582742010`)
+      .get(`http://localhost:3002/user!/products`)
       .then((res) => {
         setProducts(res.data);
       })

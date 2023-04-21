@@ -1,45 +1,49 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Payment from "./sup-compo/payment";
+import Notification from "./sup-compo/notification";
 
-function PaymentsPage() {
-  const history = useHistory();
+function PendingPaymentsPage() {
   const [payments, setPayments] = useState([]);
 
-  // Here, you can fetch the payments data from your API or database and store it in the `payments` state.
+  // ดึงข้อมูลหมายเลขการสั่งซื้อจากdatabase (ยังไม่ได้เทส)
+  useEffect(() => {
+    fetch("http://localhost:3002/user!/products/15") //test api
+      .then((response) => response.json())
+      .then((data) => setPayments(data));
+  }, []);
 
-  function handlePayment(payment) {
-    // Here, you can implement your payment logic.
-    // For example, you can use a payment gateway API like Stripe to process the payment.
-    // Once the payment is processed, you can update the payment status in your API or database and redirect the user to a success page.
-    history.push("/payment/success");
+  // ปุ่มชำระ
+  function handlePaymentClick(paymentId) {
+    // ส่งสถานะการชำระไป database (ยังไม่ได้เทส)
+    fetch(`/api/payments/${paymentId}/pay`,
+      { method: "POST" })
+      .then((response) => response.json())
+      .then((data) => {
+        // อัพเดตสถานะการชำระ
+        const updatedPayments = payments.map((payment) =>
+          payment.id === paymentId ? { ...payment, status: data.status } : payment
+        );
+        setPayments(updatedPayments);
+
+        // แจ้งเตือน (ยังไม่ได้เทส)
+        Notification.show(`Payment ${paymentId} has been processed`);
+      });
   }
 
-  function isPaymentDue(payment) {
-    const currentDate = new Date();
-    const nextDueDate = new Date(payment.nextDueDate);
-    return currentDate >= nextDueDate;
-  }
 
+  //ยังไม่ได้เทส
   return (
     <div>
-      <h1>Payments</h1>
-      {payments.map((payment) => (
-        <div key={payment.id}>
-          <div>{payment.description}</div>
-          <div>{payment.amount}</div>
-          {isPaymentDue(payment) && (
-            <div>
-              <span role="img" aria-label="warning">
-                ⚠️
-              </span>
-              Payment is due!
-              <button onClick={() => handlePayment(payment)}>Pay now</button>
-            </div>
-          )}
-        </div>
-      ))}
+      <h1>Pending Payments</h1>
+      <ul>
+        {payments.map((payment) => (
+          <li key={payment.id}>
+            <Payment payment={payment} onPaymentClick={handlePaymentClick} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default PaymentsPage;
+export default PendingPaymentsPage;
