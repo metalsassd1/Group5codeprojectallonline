@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import { useContext } from "react";
+//import { AiFillDollarCircle } from "react-icons/ai"
 import { FiUser , FiShoppingCart } from "react-icons/fi";
 import { ImSearch } from "react-icons/im";
 import { Link } from "react-router-dom"
