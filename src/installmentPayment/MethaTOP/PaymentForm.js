@@ -18,11 +18,13 @@ function PaymentForm() {
   const { id } = useParams();
 
   useEffect(() => {
-    // Fetch product data from backend API using the product ID in the URL parameter
-    fetch(`http://localhost:3400/products/${id}`)
+    // ดึงสินค้ารายชิ้น
+    fetch(`http://localhost:3002/user!/products/15`) // test api
       .then((response) => response.json())
       .then((data) => {
-        setProduct(data);
+        setProduct(data[0]);  // setข้อมูล ราคาสินค้า
+        // setPaymentAmount(data[0].product_price) // set ราคาสินค้า
+        console.log(data[0])
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -32,7 +34,7 @@ function PaymentForm() {
   // Handle form submission
   function handleSubmit(event) {
     //API สร้างแผนการชำระ
-    fetch("http://localhost:3400/paymentPlans", {
+    fetch("http://localhost:3400/paymentPlans", { //test api 
       method: "POST",
       body: JSON.stringify({
         amount: paymentAmount,
@@ -56,6 +58,7 @@ function PaymentForm() {
     event.preventDefault();
   }
 
+  console.log(product)
   return (
     <>
       <Navbar />
@@ -71,13 +74,13 @@ function PaymentForm() {
               <div className="row">
                 <div className="col-sm-6">
                   <p>
-                  <img src={product.image} alt="product image"/>
+                  <img src={product.image_product} alt="product image"/>
                   </p>
                   <p>
-                    <strong>สินค้า: </strong> {product.name}
+                    <strong>สินค้า: </strong> {product.product_name}
                   </p>
                   <p>
-                    <strong>ราคา: </strong> {product.price} บาท
+                    <strong>ราคา: </strong> {product.product_price} บาท
                   </p>
                   <p>
                     <strong>จำนวนเงิน:(test) </strong>{" "}

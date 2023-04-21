@@ -24,9 +24,9 @@ function PaymentPlanDetails({ amount, frequency, status }) {
     const nextDueDate = new Date(nextDate); //ตัวแปรเก็บวัน
     switch (frequency) {
       case "weekly":
-        interestRate = 0.01 / 13; // 1% ต่อเดือน / 4 สัปดาห์ต่อเดือน 3 เดือน = 12 สัปดาห์
+        interestRate = 0.01 / 13; // 1% ต่อเดือน / 4 สัปดาห์ต่อเดือน 3 เดือน หรือประมาณ 12 สัปดาห์
         numPayments = 13;
-        nextDueDate.setDate(nextDueDate.getDate() + 7 );
+        nextDueDate.setDate(nextDueDate.getDate() + 7); //คำนวนวันชำระครั้งถัดไป
         nextDueDates.push(nextDueDate);
 
         setPaynum(numPayments); //set จำนวนครั้งที่จ่าย
@@ -35,7 +35,7 @@ function PaymentPlanDetails({ amount, frequency, status }) {
       case "biweekly":
         interestRate = 0.01 / 6;
         numPayments = 6;
-        nextDueDate.setDate(nextDueDate.getDate() + 14 );
+        nextDueDate.setDate(nextDueDate.getDate() + 14);
         nextDueDates.push(nextDueDate);
         setPaynum(numPayments);
         setFrequency("สองสัปดาห์ 1 ครั้ง");
@@ -43,7 +43,7 @@ function PaymentPlanDetails({ amount, frequency, status }) {
       case "monthly":
         interestRate = 0.01;
         numPayments = 3;
-        nextDueDate.setMonth(nextDueDate.getMonth() + 1 );
+        nextDueDate.setMonth(nextDueDate.getMonth() + 1);
         nextDueDates.push(nextDueDate);
         setPaynum(numPayments);
         setFrequency("รายเดือน");
@@ -52,9 +52,8 @@ function PaymentPlanDetails({ amount, frequency, status }) {
         nextDueDates = [];
     }
     setInterestRate(interestRate);
-    setNextDueDates(nextDueDates);
+    // setNextDueDates(nextDueDates);
     // console.log(nextDueDates);
-
 
     // คำนวนเงินราย งวด
     const daysInMonth = new Date(
@@ -63,7 +62,7 @@ function PaymentPlanDetails({ amount, frequency, status }) {
       0
     ).getDate();
     const daysUntilDue = Math.ceil(
-      (nextDueDates[0].getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+      (nextDueDates[0].getTime() - Date.now()) / (1000 * 60 * 60 * 24) //เช็คเวลาตลอด 24 ชั่วโมง
     );
     let contractualInterest = 0;
     //ต่ำกว่า 1 เดือน
@@ -116,17 +115,9 @@ function PaymentPlanDetails({ amount, frequency, status }) {
         <div>
           <p className="payment-plan-info">
             <strong>วันที่ชำระงวดแรก:</strong>{" "}
-            {nextDueDates
-              // .filter(
-              //   (date) =>
-              //     Math.ceil(
-              //       (date.getTime() - new Date().getTime()) /
-              //         (1000 * 60 * 60 * 24)
-              //     ) <= 3
-              // )
-              .map((date, index) => (
-                <span key={index}>{date.toLocaleDateString()}</span>
-              ))}
+            {nextDueDates.map((date, index) => (
+              <span key={index}>{date.toLocaleDateString()}</span>
+            ))}
           </p>
         </div>
       )}
@@ -139,7 +130,7 @@ function PaymentPlanDetails({ amount, frequency, status }) {
       </p>
       <p className="payment-plan-info-amountPay">
         <strong>จำนวนเงินต่องวด:</strong> ฿{amountPerPayment?.toFixed(2)}{" "}
-        (รวมดอกเบี้ย {Math.round(interestRate * 100)}% ต่อเดือน)
+        (รวมดอกเบี้ย {Math.round(interestRate * 100).toFixed(2)}% ต่อเดือน)
       </p>
       <p className="payment-plan-info-status">
         <strong>สถานะการชำระ:</strong> {status}
