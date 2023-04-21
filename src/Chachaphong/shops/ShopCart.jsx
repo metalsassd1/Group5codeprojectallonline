@@ -11,15 +11,19 @@ const ShopCart = ({product}) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
+<<<<<<< HEAD
       .get(`https://64005a829f844910298eb65c.mockapi.io/products`)
+=======
+      .get(`http://localhost:3400/Product_582742010`)
+>>>>>>> e2368a5e085965f814c389290e88fe06905689c7
       .then((res) => {
         setProducts(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
-  // {products.slice(0,20).map((product) =>{
-  //   console.log(product.image_product)
-  // })}
+  {products.slice(0,20).map((product) =>{
+    console.log(product.productName)  
+  })}
   return (
     <>
       {products.slice(7,28).map((product, index) => {
@@ -35,7 +39,7 @@ const ShopCart = ({product}) => {
                 </div>
               </div>
               <div className='product-details'>
-                <h3>{product.product_name}</h3>
+                <h3>{product.productName}</h3>
                 <div className='rate'>
                   <i className='fa fa-star'></i>
                   <i className='fa fa-star'></i>

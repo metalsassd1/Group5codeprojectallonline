@@ -1,0 +1,32 @@
+.payment-plan-info {
+  position: relative;
+}
+
+.payment-plan-info::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  transform: translate(-50%, -50%);
+}
+
+.payment-plan-info.weekly::before {
+  background-color: #7bd148;
+  transform: translate(-50%, -50%) translateX(-10px);
+}
+
+.payment-plan-info.biweekly::before {
+  background-color: #7bd148;
+  transform: translate(-50%, -50%) translateX(-10px);
+}
+
+.payment-plan-info.monthly::before {
+  background-color: #7bd148;
+  transform: translate(-50%, -50%) translateX(-10px);
+}
+
+
