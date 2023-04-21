@@ -1,3 +1,5 @@
+//Chatchanan Chatsathawong
+//Yodsaphon Keddid
 var express = require('express');
 var cors = require('cors');
 var app = express();
@@ -5,8 +7,8 @@ var app = express();
 const mysql = require('mysql2/promise');
 const connection = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
-    user: '69lhyoonb5ds1avs2upy',
-    password: 'pscale_pw_xXmnk6bAEPAJl2VpudfhbsHqC5KuzDMxskMGDJmUQsr',
+    user: '0gka21x6lhdexf1b3kze',
+    password: '123',
     database: 'allonline_s',
     port: 3306,
     ssl: {
@@ -187,6 +189,13 @@ app.get('/Product_582742010', async (req, res) => {
 app.get('/UserPaylater', async (req, res) => {
     const conn = await connection;
     const users = await conn.query("SELECT * from UserPaylater")
+    res.json(result = users[0]);
+});
+
+//ดูข้อมูลPayment
+app.get('/getPayment', async (req, res) => {
+    const conn = await connection;
+    const users = await conn.query("SELECT * from Payment")
     res.json(result = users[0]);
 });
 
