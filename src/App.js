@@ -22,14 +22,11 @@ import PaymentEach from "./installmentPayment/MethaTOP/From"
 import Payment from "./Metha/payment"
 import ProductType from "./Metha/eachPro";
 import SearchResults from "./Chachaphong/MainPage/searchResult"
-<<<<<<< HEAD
 import Ph from "./installmentPayment/PhongwatBas/ph"
 import Ph1 from "./installmentPayment/PhongwatBas1/ph1"
 import Ph2 from "./installmentPayment/PhongwatBas2/ph2"
-=======
 import PaymentForm from "./installmentPayment/MethaTOP/PaymentForm"
 
->>>>>>> e2368a5e085965f814c389290e88fe06905689c7
 
 //////Metha
 function App() {
