@@ -45,11 +45,11 @@ app.post('/Payment', async (req, res) => {
     const password = req.body.password
 
     const conn = await connection;
-    const rows = await conn.query(`SELECT * FROM UserPaylater WHERE id = '${id}'`);
+    const rows = await conn.query(`SELECT * FROM UserPaylater WHERE id_card = '${id_card}'`);
 
     if (rows[0].length === 0) {
         const hashPwd = await bcrypt.hash(password, 10);
-        await conn.query(`INSERT into UserPaylater (id,id_card,firstName,lastName,address,number,password) values ('${id}', '${id_card}','${firstName}', '${lastName}', '${address}', '${number}','${hashPwd}')`);
+        await conn.query(`INSERT into UserPaylater (id_card,firstName,lastName,address,number,password) values ('${id_card}','${firstName}', '${lastName}', '${address}', '${number}','${hashPwd}')`);
         res.status(200).json({ Status: "200", Message: "Success" });
     } else {
         res.status(400).send({ Status: "400", message: "Error" });
