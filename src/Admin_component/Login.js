@@ -18,7 +18,7 @@ import Header from "../Chachaphong/header/Header";
 
 // import GoogleLogin component from GoogleLogin.js
 import GoogleLogin from "./GoogleLogin";
-import FacebookLogin from './FacebookLogin'
+
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -129,7 +129,7 @@ const Login = () => {
                                         Register
                                     </Link>
                                     {/* add GoogleLogin component */}
-                                    <GoogleLogin /> & <FacebookLogin />
+                                    <GoogleLogin /> 
                                 </Grid>
                                 <Grid item>
                                 </Grid>
