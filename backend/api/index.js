@@ -50,7 +50,7 @@ app.post('/Payment', async (req, res) => {
     const password = req.body.password
 
     const conn = await connection;
-    const rows = await conn.query(`SELECT * FROM UserPaylater WHERE id_card = '${id_card}'`);
+    const rows = await conn.query(`SELECT * FROM UserPaylater WHERE id = '${id}'`);
 
     if (rows[0].length === 0) {
         const hashPwd = await bcrypt.hash(password, 255);
