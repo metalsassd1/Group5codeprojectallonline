@@ -6,8 +6,8 @@ const mysql = require("mysql2/promise");
 
 const connection = mysql.createConnection({
   host: "aws.connect.psdb.cloud",
-  user: "0gka21x6lhdexf1b3kze",
-  password: "pscale_pw_FMFP1eVmGxULY7zeyOg9bBM3JaKmIbZ9jtgzfpA495T",
+  user: "b0prgt0mpcx8fo5u39nt",
+  password: "pscale_pw_Q2msD9JaIasKwa0EYjA351nYI8YDjy9z3qDtGFpSLsE",
   database: "allonline_s",
   port: 3306,
   ssl: {
