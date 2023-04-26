@@ -2,15 +2,16 @@ import Modal from "react-bootstrap/Modal";
 import logo from "./A.png";
 import Button from "react-bootstrap/Button";
 import logo1 from "./q.png";
+import logo2 from "./s.png"
 import Form from "react-bootstrap/Form";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import swal from "sweetalert"
+
 
 
 //////Suphapburut
 function PLT() {
-    const handlelogin = () => {
-        window.location.href='/loginplt';
-      };
+
   const [show, setShow] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -20,22 +21,22 @@ function PLT() {
   const handleClose = () => setShow(false);
   const [checked, setChecked] = useState(false);
 
-  const webcamRef = useRef(null);
-  const [image, setImage] = useState(null);
-
-  const capture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImage(imageSrc);
-  };
-
   const [showFirstModal, setShowFirstModal] = useState(true);
   const [showSecondModal, setShowSecondModal] = useState(false);
+  const [showThirdModal, setShowThirdModal] = useState(false);
 
+  
   const handleShowSecondModal = () => {
     setShowFirstModal(false);
     setShowSecondModal(true);
   };
-
+  const handleShowThirdModal = () => {
+    setShowSecondModal(false);
+    setShowThirdModal(true);
+  };
+  const handleCloseThirdModal = () => {
+    setShowThirdModal(false);
+  };
   const handleCloseSecondModal = () => {
     setShowSecondModal(false);
   };
@@ -47,6 +48,57 @@ function PLT() {
     handleCloseSecondModal();
     console.log("Accepted!");
   };
+
+
+  
+  const handleSubmit = event => {
+    event.preventDefault();
+    var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  
+  var raw = JSON.stringify({
+    "id_card": id_card,
+    "firstName": firstName,
+    "lastName": lastName,
+    "address": address,
+    "number": number,
+    "password": password
+  });
+  
+  var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+  };
+  
+  fetch("http://localhost:3400/Payment", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    console.log(result)
+    if (result['Status'] === '200') {
+      swal({
+        icon: "success",
+        text: "สมัครสมาชิกเรียบร้อย"
+      }).then(() => {
+       
+      })
+    }
+   else {
+    swal({
+      html: <i>{result.Message}</i>,
+      icon: 'error'
+    })
+  }  
+  })
+  .catch(error => console.log('error', error));
+  }
+  const [id_card, setId_Card] = useState('');
+    const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [address, setAddress] = useState('');
+  const [number, setNumber] = useState('');
+  const [password, setPassword] = useState('');
 
  
  
@@ -115,16 +167,119 @@ function PLT() {
             <Modal.Footer>
               <Button
                 variant="success"
-                onClick={handlelogin}
+                onClick={handleShowThirdModal}
                 disabled={!checked}
               >
                 ยอมรับ
               </Button>
-              <Button variant="secondary" onClick={handlelogin}>
+              <Button variant="secondary" onClick={handleCloseSecondModal}>
                 ปิด
               </Button>
             </Modal.Footer>
           </Modal>
+          <Modal show={showThirdModal} onHide={handleCloseThirdModal}>
+            <Modal.Header>
+              <Modal.Title></Modal.Title>
+              <img src={logo2} alt="logo" width={460} height={150} />
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formBasicid_card">
+                  <Form.Label>เลขบัตรประชาชน</Form.Label>
+                  <Form.Control
+                   autoComplete="id_card"
+                   name="id_card"
+                   variant="outlined"
+                   required
+                   fullWidth
+                   id="id_card"
+                   label="ID Card"
+                   onChange={(e) => setId_Card(e.target.value)}
+                   autoFocus
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicfirstName">
+                  <Form.Label>ชื่อ</Form.Label>
+                  <Form.Control
+                    autoComplete="FirstName"
+                    name="firstName"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="FirstName"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasiclastName">
+                  <Form.Label>นามสกุล</Form.Label>
+                  <Form.Control
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="LastName"
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicaddress">
+                  <Form.Label>ที่อยู่</Form.Label>
+                  <Form.Control
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="address"
+                    label="Address"
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicNumber">
+                  <Form.Label>เบอร์โทรศัพย์</Form.Label>
+                  <Form.Control
+                    autoComplete="number"
+                    name="number"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="number"
+                    label="Number"
+                    onChange={(e) => setNumber(e.target.value)}
+                    autoFocus
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicpassword">
+                  <Form.Label>รหัสผ่าน</Form.Label>
+                  <Form.Control
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type="password"
+                    id="password"
+                    label="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicReset">
+                  <Form.Control input type="reset" />
+                </Form.Group>
+                <Modal.Footer>
+            <Button  
+            type="submit"
+            fullWidth
+            variant="success"
+            onClick={handleCloseThirdModal}
+           
+          >
+            ยืนยัน
+          </Button>
+              <Button variant="secondary" onClick={handleCloseThirdModal} > 
+                ปิด
+              </Button> </Modal.Footer>
+                 </Form>
+            </Modal.Body>
+          </Modal>
+
+
          
         </>
 
