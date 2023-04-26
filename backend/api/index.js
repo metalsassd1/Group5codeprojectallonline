@@ -186,10 +186,6 @@ app.get('/Product_582742010', async (req, res) => {
     res.json(result = Product[0]);
 });
 
-// สร้างแผนการชำระเงิน
-
-
-
 //ประวัติย่อ 
 app.get('/UserPaylater', async (req, res) => {
     const conn = await connection;
