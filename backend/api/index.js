@@ -1,6 +1,7 @@
 //Chatchanan Chatsathawong
 //Yodsaphon Keddid
 var express = require('express');
+var bcrypt = require("bcrypt");
 var cors = require('cors');
 var app = express();
 
@@ -41,14 +42,18 @@ app.post('/Payment', async (req, res) => {
     const lastName = req.body.lastName;
     const address = req.body.address;
     const number = req.body.number;
-    const password = req.body.password;
+    const password = req.body.password
 
     const conn = await connection;
-    const Payment = await conn.query(' INSERT into UserPaylater (id,id_card,firstName,lastName,address,number,password) values (?,?,?,?,?,?,?)', [id, id_card, firstName, lastName, address, number, password]);
-    if (Payment[0].affectedRows === 0) {
-        return res.status(404).json({ Status: "404", Message: "Error" });
+    const rows = await conn.query(`SELECT * FROM UserPaylater WHERE id = '${id}'`);
+
+    if (rows[0].length === 0) {
+        const hashPwd = await bcrypt.hash(password, 10);
+        await conn.query(`INSERT into UserPaylater (id,id_card,firstName,lastName,address,number,password) values ('${id}', '${id_card}','${firstName}', '${lastName}', '${address}', '${number}','${hashPwd}')`);
+        res.status(200).json({ Status: "200", Message: "Success" });
+    } else {
+        res.status(400).send({ "message": "Username Already Exist" });
     }
-    res.status(200).json({ Status: "200", Message: "Success" });
 });
 
 // get UserAllonline
