@@ -22,6 +22,9 @@ import PaymentEach from "./installmentPayment/MethaTOP/From"
 import Payment from "./Metha/payment"
 import ProductType from "./Metha/eachPro";
 import SearchResults from "./Chachaphong/MainPage/searchResult"
+import Ph from "./installmentPayment/PhongwatBas/ph"
+import Ph1 from "./installmentPayment/PhongwatBas1/ph1"
+import Ph2 from "./installmentPayment/PhongwatBas2/ph2"
 import PaymentForm from "./installmentPayment/MethaTOP/PaymentForm"
 
 
@@ -118,6 +121,15 @@ function App() {
           </Route>
           <Route path="/payments" >
             <Payment/>
+          </Route>
+          <Route path='/phongwatBas'>
+            <Ph/>
+          </Route>
+          <Route path='/phongwatBas1'>
+            <Ph1/>
+          </Route>
+          <Route path='/phongwatBas2'>
+            <Ph2/>
           </Route>
         </Switch>
       </Router>

@@ -11,7 +11,15 @@ const ShopCart = ({product}) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
+<<<<<<< HEAD
+<<<<<<< HEAD
+      .get(`https://64005a829f844910298eb65c.mockapi.io/products`)
+=======
       .get(`http://localhost:3400/Product_582742010`)
+>>>>>>> e2368a5e085965f814c389290e88fe06905689c7
+=======
+      .get(`http://localhost:3002/user!/products`)
+>>>>>>> 8d56a29054b79dc56c94ac54d3625009c4c722b2
       .then((res) => {
         setProducts(res.data);
       })
